@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Pesquisa</title>
+</head>
+<body>
+
+<h2>Pesquisa</h2>
+
+<input id="q1" placeholder="Pergunta 1"><br><br>
+
+<input id="q2a" placeholder="Q2 A"><br>
+<input id="q2b" placeholder="Q2 B"><br>
+<input id="q2c" placeholder="Q2 C"><br>
+<input id="q2d" placeholder="Q2 D"><br><br>
+
+<select id="q3">
+  <option value="">Selecione</option>
+  <option value="A">A</option>
+  <option value="B">B</option>
+</select><br><br>
+
+<input id="q3text" placeholder="Explique"><br><br>
+
+<h3>Q4 (múltipla escolha)</h3>
+
+<label><input type="checkbox" name="q4check" value="A"> A</label><br>
+<label><input type="checkbox" name="q4check" value="B"> B</label><br>
+<label><input type="checkbox" name="q4check" value="C"> C</label><br>
+
+<br>
+
+<textarea id="q4" placeholder="Explique"></textarea>
+
+<br><br>
+
+<button onclick="submit()">Enviar</button>
+
+<script>
+
+function submit() {
+
+  // 🔒 VALIDAÇÃO
+  if (!document.getElementById('q1').value) {
+    alert("Preencha a pergunta 1");
+    return;
+  }
+
+  if (!document.getElementById('q3').value) {
+    alert("Selecione uma opção na pergunta 3");
+    return;
+  }
+
+  const checked = document.querySelectorAll('input[name=q4check]:checked');
+  if (checked.length === 0) {
+    alert("Selecione pelo menos uma opção na pergunta 4");
+    return;
+  }
+
+  // 📦 PAYLOAD
+  const payload = {
+    q1: document.getElementById('q1').value,
+    q2a: document.getElementById('q2a').value,
+    q2b: document.getElementById('q2b').value,
+    q2c: document.getElementById('q2c').value,
+    q2d: document.getElementById('q2d').value,
+    q3choice: document.getElementById('q3').value,
+    q3text: document.getElementById('q3text').value,
+    q4_options: Array.from(checked).map(cb => cb.value).join(', '),
+    q4_text: document.getElementById('q4').value
+  };
+
+  fetch("https://script.google.com/macros/s/AKfycbyb14CzUwuW6Oe2fPrFESOj4KqIxzF9xLyFmEJbwtNeHtWRVs6jIL-QJgQYzX0T1qFr/exec", {
+    method: "POST",
+    mode: "no-cors",
+    body: JSON.stringify(payload),
+    headers: {
+      "Content-Type": "application/json"
+    }
+  });
+
+  alert("Enviado com sucesso!");
+}
+
+</script>
+
+</body>
+</html>
