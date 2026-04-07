@@ -135,16 +135,13 @@ async function submitForm(){
   };
 
   try {
-  await fetch("https://script.google.com/macros/s/AKfycbxbhdY9weh6sDWGkbBkNgfAEzmQ8DJvmjnJM9j4Qsxr_zds9dn-Ac1Xpi1OhqjHpzfCBg/exec", {
-    method: "POST",
-    mode: "no-cors",
-    body: JSON.stringify(data),
-    headers: {
-      "Content-Type": "application/json"
-    }
-  });
+ await fetch("https://script.google.com/macros/s/AKfycbxbhdY9weh6sDWGkbBkNgfAEzmQ8DJvmjnJM9j4Qsxr_zds9dn-Ac1Xpi1OhqjHpzfCBg/exec", {
+  method: "POST",
+  mode: "no-cors",
+  body: JSON.stringify(payload)
+  
+});
 
-  // ✅ FORÇA SUCESSO (porque no-cors não retorna resposta)
   document.querySelectorAll(".step").forEach(s => s.classList.remove("active"));
   document.getElementById("stepThanks").classList.add("active");
   document.getElementById("progressFill").style.width = "100%";
