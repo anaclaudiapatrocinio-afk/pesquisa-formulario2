@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
@@ -32,6 +33,7 @@ button:disabled {
   opacity: 0.5;
 }
 </style>
+
 </head>
 
 <body>
@@ -39,6 +41,7 @@ button:disabled {
 <div class="container">
 
 <!-- STEP 1 -->
+
 <div class="step active" id="step1">
   <h2>Pergunta 1</h2>
   <textarea id="q1" placeholder="Digite sua resposta"></textarea><br><br>
@@ -46,6 +49,7 @@ button:disabled {
 </div>
 
 <!-- STEP 2 -->
+
 <div class="step" id="step2">
   <h2>Pergunta 2</h2>
   <input id="q2a" placeholder="Opção A"><br>
@@ -57,6 +61,7 @@ button:disabled {
 </div>
 
 <!-- STEP 3 -->
+
 <div class="step" id="step3">
   <h2>Pergunta 3</h2>
   <select id="q3">
@@ -68,27 +73,28 @@ button:disabled {
 
   <textarea id="q3text" placeholder="Explique"></textarea><br><br>
 
-  <button onclick="prev(3)">Voltar</button>
-  <button onclick="next(3)">Próximo</button>
+<button onclick="prev(3)">Voltar</button> <button onclick="next(3)">Próximo</button>
+
 </div>
 
 <!-- STEP 4 -->
+
 <div class="step" id="step4">
   <h2>Pergunta 4</h2>
 
-  <label><input type="checkbox" name="q4" value="A"> A</label><br>
-  <label><input type="checkbox" name="q4" value="B"> B</label><br>
-  <label><input type="checkbox" name="q4" value="C"> C</label><br><br>
+<label><input type="checkbox" name="q4" value="A"> A</label><br> <label><input type="checkbox" name="q4" value="B"> B</label><br> <label><input type="checkbox" name="q4" value="C"> C</label><br><br>
 
   <textarea id="q4text" placeholder="Explique"></textarea><br><br>
 
-  <button onclick="prev(4)">Voltar</button>
-  <button id="submitBtn" onclick="submitForm()">Enviar</button>
+<button onclick="prev(4)">Voltar</button> <button id="submitBtn" onclick="submitForm()">Enviar</button>
+
 </div>
 
 <!-- SUCESSO -->
+
 <div class="step" id="success">
   <h2>✅ Obrigado!</h2>
+  <p>Resposta enviada com sucesso.</p>
 </div>
 
 </div>
@@ -135,22 +141,21 @@ async function submitForm(){
   };
 
   try {
- await fetch("https://script.google.com/macros/s/AKfycbxbhdY9weh6sDWGkbBkNgfAEzmQ8DJvmjnJM9j4Qsxr_zds9dn-Ac1Xpi1OhqjHpzfCBg/exec", {
-  method: "POST",
-  mode: "no-cors",
-  body: JSON.stringify(payload)
-  
-});
 
-  document.querySelectorAll(".step").forEach(s => s.classList.remove("active"));
-  document.getElementById("stepThanks").classList.add("active");
-  document.getElementById("progressFill").style.width = "100%";
+    await fetch("https://script.google.com/macros/s/AKfycbxbhdY9weh6sDWGkbBkNgfAEzmQ8DJvmjnJM9j4Qsxr_zds9dn-Ac1Xpi1OhqjHpzfCBg/exec", {
+      method: "POST",
+      mode: "no-cors",
+      body: JSON.stringify(payload)
+    });
 
-} catch (e) {
-  btn.disabled = false;
-  btn.textContent = "Enviar respostas ✓";
-  alert("Erro de conexão. Verifique sua internet e tente novamente.");
-}
+    document.querySelectorAll(".step").forEach(s => s.classList.remove("active"));
+    document.getElementById("success").classList.add("active");
+
+  } catch (e) {
+    btn.disabled = false;
+    btn.textContent = "Enviar";
+    alert("Erro de conexão. Verifique sua internet e tente novamente.");
+  }
 }
 
 </script>
